@@ -52,6 +52,8 @@ Phase 2 - Dashboard MVP with polished UI/UX.
 - Replaced the default Vite README with a real project description.
 - Polished the README into a recruiter- and GIS-reviewer-oriented portfolio
   document with real dashboard, report, and QGIS screenshots.
+- Deployed the dashboard and report preview to Vercel:
+  `https://satellite-change-dashboard.vercel.app`.
 
 ## Current Results
 

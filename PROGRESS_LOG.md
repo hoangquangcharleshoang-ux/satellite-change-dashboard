@@ -384,3 +384,22 @@ Next:
   accuracy assessment.
 - Prepare deployment and demo links when the private repository is ready to
   publish.
+
+## Session - 2026-06-13 - Vercel Deployment Documentation
+
+Completed:
+
+- Recorded the successful Vercel deployment in the project documentation.
+- Added the live dashboard and report preview links near the top of the README.
+- Updated project status with the deployment URL:
+  `https://satellite-change-dashboard.vercel.app`.
+- Kept application source code and geospatial outputs unchanged.
+
+Verification:
+
+- `git diff --check` passed.
+
+Next:
+
+- Share the live demo with portfolio reviewers and continue expanding
+  qualitative validation.

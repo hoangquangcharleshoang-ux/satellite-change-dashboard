@@ -8,9 +8,18 @@ The project connects a Google Earth Engine analysis pipeline to QGIS validation
 and a React dashboard. It uses real Sentinel-2 outputs rather than mock
 dashboard data.
 
+**Live demo:** [https://satellite-change-dashboard.vercel.app](https://satellite-change-dashboard.vercel.app)
+
 > **Important:** Potential urban expansion is a candidate layer, not confirmed
 > land-use change. Validation is preliminary and is not a full statistical
 > accuracy assessment.
+
+## Live Demo
+
+Explore the deployed dashboard and preliminary report:
+
+- [Dashboard](https://satellite-change-dashboard.vercel.app/)
+- [Report preview](https://satellite-change-dashboard.vercel.app/report)
 
 ## Why This Project Matters
 
@@ -251,7 +260,8 @@ browser.
 - Add more QGIS production and data-quality workflows, including geometry and
   topology checks.
 - Add route-level code splitting to reduce the current frontend bundle size.
-- Add deployment and demo links when the private project is ready to publish.
+- Expand the deployed portfolio with additional validated samples and GIS
+  quality-assurance workflows.
 
 ## License
 
