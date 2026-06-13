@@ -295,3 +295,32 @@ Next:
 
 - Add a before/after NDVI chart and report preview page.
 - Consider code-splitting to resolve the Vite large-chunk warning.
+
+## Session - 2026-06-13 - Dashboard Area Comparison Chart
+
+Completed:
+
+- Added a reusable Recharts horizontal bar chart using the existing static
+  analysis JSON values.
+- Compared vegetation loss, vegetation gain, and potential urban expansion
+  candidate area in square kilometres.
+- Used the existing red, blue, and amber semantic colors.
+- Added a visible caveat that the urban expansion area is a candidate, not
+  confirmed land-use change.
+- Preserved the existing dashboard map, layer controls, and uncertainty
+  language.
+- Kept all JSON, GeoJSON, raster, notebook, QGIS, credential, and environment
+  files unchanged.
+
+Verification:
+
+- `npm run build` passed.
+- `npm run lint` passed.
+- `git diff --check` passed.
+- Browser verification confirmed that the chart and map render, all layer
+  toggles work, and no console errors occur.
+
+Next:
+
+- Add a report preview page and continue qualitative validation.
+- Consider code-splitting to resolve the Vite large-chunk warning.

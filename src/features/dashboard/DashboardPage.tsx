@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { StatCard } from '../../components/cards/StatCard'
+import { AreaComparisonChart } from '../../components/charts/AreaComparisonChart'
 import { DashboardShell } from '../../components/layout/DashboardShell'
 import { ChangeMap } from '../../components/map/ChangeMap'
 import { LayerControls } from '../../components/map/LayerControls'
@@ -180,6 +181,14 @@ export function DashboardPage() {
             value={formatStatus(summary.combinedChange.status)}
           />
         </section>
+      </div>
+
+      <div>
+        <div className="section-label">
+          <span className="section-label__eyebrow">Area Comparison</span>
+          <span className="section-label__line" />
+        </div>
+        <AreaComparisonChart summary={summary} />
       </div>
 
       {/* ── Map + Layers ─────────────────────────────────── */}

@@ -36,6 +36,8 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   to provide road, neighborhood, and place context.
 - Added analysis stat cards, loading/error states, and methodology and
   validation summaries.
+- Added a reusable Recharts area comparison chart for vegetation loss,
+  vegetation gain, and potential urban expansion candidate area.
 - Documented the initial workflow, current results, and limitations in
   `docs/geo/WORKFLOW.md` and `docs/geo/INDICES.md`.
 - Polished the dashboard UI/UX to portfolio quality: dark gradient header,
@@ -75,5 +77,5 @@ Phase 2 - Dashboard MVP with polished UI/UX.
 
 ## Next Step
 
-Improve the dashboard with a before/after NDVI chart and report preview page.
-Consider code-splitting to resolve the Vite chunk warning.
+Improve the dashboard with a report preview page and additional validation
+samples. Consider code-splitting to resolve the Vite chunk warning.

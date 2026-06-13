@@ -322,6 +322,28 @@
   line-height: 1.45;
 }
 
+/* Area comparison chart */
+.chart-panel {
+  overflow: hidden;
+}
+
+.area-chart {
+  min-width: 0;
+  height: 250px;
+  padding: 14px 18px 0;
+}
+
+.chart-panel__caveat {
+  margin: 0 18px 18px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-urban);
+  color: #6b4c0a;
+  background: var(--color-urban-bg);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
 /* ── Layer panel ───────────────────────────────────────────── */
 .layer-panel {
   display: flex;
@@ -685,6 +707,11 @@
 
   .map-container {
     height: 450px;
+  }
+
+  .area-chart {
+    height: 280px;
+    padding-left: 4px;
   }
 }
 
