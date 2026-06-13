@@ -49,11 +49,18 @@ Confidence:
 - `Medium`: plausible evidence with some ambiguity.
 - `Low`: weak, incomplete, or conflicting evidence.
 
-## Validation Table Template
+## Initial Validation Records
 
 | ID | Location / description | Model result | Visual reference | Confidence | Status | Notes |
 | -- | ---------------------- | ------------ | ---------------- | ---------- | ------ | ----- |
-| PLACEHOLDER-01 | Placeholder only - replace after review | Potential urban expansion | Not reviewed | Low | Unclear | No validation evidence recorded |
+| V01 | Khu đất xanh/đất trống gần Ngõ 139 Đường Phú Diễn, phía bắc khu Phenikaa | Potential urban expansion | Ảnh 2018/2019 cho thấy khu vực chủ yếu là mảng xanh, đất trống và một số bề mặt sáng màu nhỏ; ảnh 2025 vẫn còn nhiều mảng xanh nhưng xuất hiện thêm các vùng đất sáng/bề mặt bị xáo trộn, có dấu hiệu san lấp hoặc thay đổi bề mặt. | Medium | Unclear | Kết quả phù hợp một phần với tín hiệu NDVI giảm và NDBI tăng, nhưng chưa đủ bằng chứng để xác nhận là đô thị hóa hoàn chỉnh. Có thể là đất trống, san lấp, công trường, thay đổi mùa vụ hoặc biến động bề mặt tạm thời. |
+| V02 | Khu Bệnh viện Đại học Phenikaa / cổng Kiều Mai | Potential urban expansion | Ảnh 2019 cho thấy khu vực chủ yếu là đất trống, mảng xanh hoặc bề mặt chưa xây dựng; ảnh 2025 cho thấy cụm công trình bệnh viện, đường nội bộ, bề mặt bê tông và khu xây dựng xuất hiện rõ. | High | Confirmed | Kết quả phù hợp rõ với quy tắc NDVI giảm mạnh kết hợp NDBI tăng mạnh. Đây là ví dụ tốt cho nhóm potential urban expansion, dù Google Earth chỉ được dùng làm nguồn kiểm chứng trực quan định tính. |
+| V03 | Khu Phố Phúc Minh / Trường THCS Phú Diễn - Phú Diễn A | Potential urban expansion | Ảnh 2019 cho thấy khu vực còn nhiều thửa đất xanh, vườn/ruộng nhỏ và khoảng trống giữa các cụm dân cư; ảnh 2025 cho thấy mật độ công trình, mái nhà, đường và bề mặt xây dựng tăng rõ ở nhiều vị trí. | Medium | Confirmed | Kết quả phù hợp với tín hiệu NDVI giảm kết hợp NDBI tăng, nhưng khu vực có cấu trúc dân cư xen kẽ đất trống/vườn nên có thể chịu ảnh hưởng của mixed pixels và thay đổi mùa vụ. |
+
+These first three records are qualitative observations, not authoritative
+ground truth or a statistical accuracy result. Google Earth historical imagery
+was used only as a qualitative visual reference alongside the QGIS candidate
+polygons and reproducible Sentinel-2 comparison layers.
 
 ## Recommended QGIS Validation Workflow
 

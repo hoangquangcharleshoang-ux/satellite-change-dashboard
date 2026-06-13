@@ -25,6 +25,9 @@ Phase 1 - NDVI + NDBI analysis pipeline and qualitative validation preparation.
 - Added a qualitative validation protocol without claiming accuracy.
 - Exported reproducible Sentinel-2 before/after RGB composites and NDVI/NDBI
   difference GeoTIFFs for QGIS validation.
+- Added the first three qualitative validation samples: two Confirmed
+  candidates and one Unclear candidate.
+- Saved the QGIS validation project at `qgis/phenikaa-validation.qgz`.
 - Documented the initial workflow, current results, and limitations in
   `docs/geo/WORKFLOW.md` and `docs/geo/INDICES.md`.
 
@@ -42,7 +45,8 @@ Phase 1 - NDVI + NDBI analysis pipeline and qualitative validation preparation.
 
 ## Known Gaps
 
-- Results have not yet been validated.
+- Validation is preliminary and is not a full statistical accuracy assessment.
+- Only three qualitative candidate samples have been reviewed so far.
 - Re-running the notebook requires an authenticated Earth Engine environment
   with the configured Google Cloud project and the `ee`, `geemap`, and
   `rasterio` packages.
@@ -53,6 +57,5 @@ Phase 1 - NDVI + NDBI analysis pipeline and qualitative validation preparation.
 
 ## Next Step
 
-Load the candidate GeoJSON layers and Sentinel-2 validation rasters into QGIS,
-compare before/after composites, and record Confirmed / Unclear / Rejected
-labels with confidence levels in `docs/geo/VALIDATION.md`.
+Begin the dashboard MVP or continue reviewing additional candidate samples to
+broaden the qualitative validation evidence.

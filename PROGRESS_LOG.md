@@ -138,3 +138,27 @@ Next:
 
 - Load the candidate polygons and four validation rasters into QGIS, compare
   before/after evidence, and record qualitative labels and confidence.
+
+## Session - 2026-06-13 - Initial Qualitative Validation Samples
+
+Completed:
+
+- Reviewed three candidate areas using QGIS candidate polygons and Google
+  Earth historical imagery.
+- Added initial qualitative validation records:
+  - V01: Ngõ 139 Đường Phú Diễn area - Unclear / Medium
+  - V02: Phenikaa Hospital / Kiều Mai gate area - Confirmed / High
+  - V03: Phố Phúc Minh / THCS Phú Diễn area - Confirmed / Medium
+- Saved and referenced the QGIS validation project:
+  `qgis/phenikaa-validation.qgz`.
+
+Validation note:
+
+- Google Earth imagery was used only as a qualitative visual reference, not as
+  authoritative ground truth.
+- Validation remains preliminary and is not a full statistical accuracy
+  assessment.
+
+Next:
+
+- Begin the dashboard MVP or continue with more qualitative validation samples.
