@@ -38,6 +38,10 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   validation summaries.
 - Added a reusable Recharts area comparison chart for vegetation loss,
   vegetation gain, and potential urban expansion candidate area.
+- Added React Router navigation with dashboard and portfolio-friendly report
+  preview routes.
+- Added a static-data-driven preliminary report preview covering study inputs,
+  results, combined candidate rule, validation summary, and limitations.
 - Documented the initial workflow, current results, and limitations in
   `docs/geo/WORKFLOW.md` and `docs/geo/INDICES.md`.
 - Polished the dashboard UI/UX to portfolio quality: dark gradient header,
@@ -77,5 +81,5 @@ Phase 2 - Dashboard MVP with polished UI/UX.
 
 ## Next Step
 
-Improve the dashboard with a report preview page and additional validation
-samples. Consider code-splitting to resolve the Vite chunk warning.
+Continue with additional validation samples and a QGIS print layout export.
+Consider route-level code-splitting to resolve the Vite chunk warning.

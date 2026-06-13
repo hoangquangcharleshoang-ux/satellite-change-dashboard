@@ -53,9 +53,13 @@ async function loadLayer(id: LayerId): Promise<AnalysisLayer> {
   }
 }
 
+export function loadAnalysisSummary(): Promise<AnalysisSummary> {
+  return fetchJson<AnalysisSummary>('phenikaa-area-ndvi-change.json')
+}
+
 export async function loadDashboardData(): Promise<DashboardData> {
   const [summary, ...layers] = await Promise.all([
-    fetchJson<AnalysisSummary>('phenikaa-area-ndvi-change.json'),
+    loadAnalysisSummary(),
     loadLayer('vegetation-loss'),
     loadLayer('vegetation-gain'),
     loadLayer('potential-urban-expansion'),

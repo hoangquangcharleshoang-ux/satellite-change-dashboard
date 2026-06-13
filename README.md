@@ -44,6 +44,11 @@ npm run dev
 
 The dashboard reads static JSON and GeoJSON files from `public/sample-analysis/`.
 
+Routes:
+
+- `/` - interactive dashboard, map, statistics, and area comparison chart
+- `/report` - preliminary portfolio report preview
+
 ## Project Structure
 
 ```
@@ -85,7 +90,7 @@ The dashboard reads static JSON and GeoJSON files from `public/sample-analysis/`
 - Combined NDVI loss + NDBI gain is a stronger candidate signal but does not confirm urbanization.
 - The AOI is a small pilot area; thresholds should be recalculated for other areas.
 - Vectorized polygon-area sums differ slightly from raster pixel-area totals.
-- The dashboard is vector-only; basemap and GeoTIFF display are deferred.
+- The OpenStreetMap basemap requires an internet connection; GeoTIFF display is deferred.
 
 ## License
 

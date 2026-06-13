@@ -324,3 +324,35 @@ Next:
 
 - Add a report preview page and continue qualitative validation.
 - Consider code-splitting to resolve the Vite large-chunk warning.
+
+## Session - 2026-06-13 - Dashboard Report Preview
+
+Completed:
+
+- Added simple React Router routes for the dashboard at `/` and report preview
+  at `/report`.
+- Added shared Dashboard and Report navigation links in the header.
+- Added a portfolio-friendly preliminary report preview using the existing
+  static analysis JSON for all numeric fields.
+- Included study-area and dataset details, comparison periods, image counts,
+  NDVI statistics, area results, combined candidate rule, documented
+  validation labels, and limitations.
+- Added visible uncertainty callouts and retained candidate-not-confirmed
+  language.
+- Added a summary-only data loader so the report does not fetch GeoJSON layers.
+- Updated the README with the chart and report preview features.
+- Kept all JSON, GeoJSON, raster, notebook, QGIS, credential, and environment
+  files unchanged.
+
+Verification:
+
+- `npm run build` passed.
+- `npm run lint` passed.
+- `git diff --check` passed.
+- Browser verification confirmed `/`, `/report`, navigation, and a clean
+  console.
+
+Next:
+
+- Continue qualitative validation and create a QGIS print layout export.
+- Consider route-level code-splitting to resolve the Vite large-chunk warning.
