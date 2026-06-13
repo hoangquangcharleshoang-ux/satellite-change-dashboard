@@ -29,3 +29,26 @@ Next:
 - Add methodology notes to docs/geo/WORKFLOW.md and docs/geo/INDICES.md.
 - Export GeoJSON change zones if feasible.
 - Build the dashboard to read this JSON.
+
+## Session - 2026-06-13 - Initial NDVI Methodology Documentation
+
+Completed:
+
+- Documented the Phenikaa Hospital / Phu Dien - Xuan Phuong pilot AOI.
+- Documented Sentinel-2 SR Harmonized inputs, same-season date ranges, image
+  counts, SCL cloud masking, and median composites.
+- Documented NDVI, NDVI difference, mean +/- 1.5 standard deviation
+  classification, area statistics, and current JSON results.
+- Added limitations covering validation status, NDVI interpretation,
+  cloud/composite limitations, and pilot-AOI scope.
+- Updated `PROJECT_STATUS.md` with the current phase, results, gaps, and next
+  step.
+
+Verification:
+
+- Documentation-only change; no build required.
+
+Next:
+
+- Validate detected change areas against historical reference imagery and
+  document the validation evidence.
