@@ -17,11 +17,16 @@ export function LayerControls({
 }: LayerControlsProps) {
   return (
     <aside className="panel layer-panel" aria-label="Map layer controls">
-      <h2>Map layers</h2>
-      <p className="layer-panel__help">Toggle static candidate polygons.</p>
+      <h2>Map Layers</h2>
+      <p className="layer-panel__help">
+        Toggle candidate change polygons on the map.
+      </p>
       <div className="layer-list">
         {layers.map((layer) => (
-          <label className="layer-toggle" key={layer.id}>
+          <label
+            className={`layer-toggle${visibility[layer.id] ? ' layer-toggle--active' : ''}`}
+            key={layer.id}
+          >
             <input
               checked={visibility[layer.id]}
               onChange={() => onToggle(layer.id)}
@@ -30,7 +35,9 @@ export function LayerControls({
             <span className="layer-toggle__text">
               <strong>{layer.label}</strong>
               <span>{layer.description}</span>
-              <span>{layer.data.features.length} polygons</span>
+              <span className="layer-toggle__count">
+                {layer.data.features.length} polygons
+              </span>
             </span>
             <span
               className="legend-swatch"
@@ -41,7 +48,8 @@ export function LayerControls({
         ))}
       </div>
       <p className="layer-panel__caveat">
-        Orange polygons are candidates, not confirmed land-use change.
+        Orange polygons are <strong>candidates</strong>, not confirmed land-use
+        change. All layers require manual validation.
       </p>
     </aside>
   )

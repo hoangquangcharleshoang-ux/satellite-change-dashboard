@@ -1,19 +1,63 @@
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
 :root {
+  /* Brand */
   --brand: #2f6b45;
-  --surface: #fff;
-  --background: #f4f7f5;
-  --border: #dfe7e2;
-  --text-strong: #17231c;
-  --text-muted: #617068;
-  --text-faint: #849088;
+  --brand-light: #3d8a5a;
+  --brand-dark: #1e4a30;
+
+  /* Surfaces */
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --background: #f3f6f4;
+  --background-subtle: #eaf0ec;
+
+  /* Borders */
+  --border: #dce4df;
+  --border-light: #e8eeeb;
+  --border-focus: #a3c4ae;
+
+  /* Text */
+  --text-strong: #131d17;
+  --text-body: #2d3d33;
+  --text-muted: #5e7068;
+  --text-faint: #8a9990;
+
+  /* Header (dark) */
+  --header-bg: #0f1a14;
+  --header-bg-end: #172a1f;
+  --header-text: #e4ede8;
+  --header-text-muted: #94a89c;
+
+  /* Semantic: change-type colors */
+  --color-loss: #dc3c3c;
+  --color-loss-bg: #fef2f2;
+  --color-gain: #2878d0;
+  --color-gain-bg: #eff6ff;
+  --color-urban: #e89b0e;
+  --color-urban-bg: #fffbeb;
+  --color-confirmed: #16a34a;
+  --color-confirmed-bg: #ecfdf5;
+  --color-unclear: #d97706;
+  --color-unclear-bg: #fffbeb;
+
+  /* Layout */
   --radius: 12px;
-  --shadow: 0 8px 24px rgba(31, 55, 41, 0.05);
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  color: var(--text-strong);
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(15, 26, 20, 0.06);
+  --shadow: 0 4px 16px rgba(15, 26, 20, 0.06);
+  --shadow-md: 0 8px 30px rgba(15, 26, 20, 0.08);
+  --shadow-lg: 0 12px 40px rgba(15, 26, 20, 0.1);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-normal: 250ms var(--ease-out);
+
+  /* Typography */
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-body);
   background: var(--background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;

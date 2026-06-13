@@ -4,7 +4,7 @@
 
 ## Current Phase
 
-Phase 2 - Dashboard MVP technical foundation.
+Phase 2 - Dashboard MVP with polished UI/UX.
 
 ## Completed
 
@@ -36,6 +36,12 @@ Phase 2 - Dashboard MVP technical foundation.
   validation summaries.
 - Documented the initial workflow, current results, and limitations in
   `docs/geo/WORKFLOW.md` and `docs/geo/INDICES.md`.
+- Polished the dashboard UI/UX to portfolio quality: dark gradient header,
+  expanded design system with semantic color tokens, improved stat cards with
+  hover effects, section labels with eyebrow text, validation summary table
+  with status and confidence chips, methodology caveat callouts, status badges,
+  better responsive breakpoints, and Google Fonts (Inter).
+- Replaced the default Vite README with a real project description.
 
 ## Current Results
 
@@ -66,5 +72,5 @@ Phase 2 - Dashboard MVP technical foundation.
 
 ## Next Step
 
-Have Antigravity polish the Dashboard MVP visual hierarchy and responsive
-details without changing the static-data contracts or geospatial methodology.
+Improve the dashboard with a basemap tile layer, before/after NDVI chart, and
+report preview page. Consider code-splitting to resolve the Vite chunk warning.

@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# Satellite Change Detection Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A portfolio-quality remote sensing dashboard for detecting and visualizing vegetation change and potential urban expansion in peri-urban Hanoi using Sentinel-2 Surface Reflectance imagery.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project implements a complete NDVI/NDBI change detection pipeline from Google Earth Engine through to a web-based interactive dashboard. The pilot analysis covers the Phenikaa University Hospital / Phu Dien – Xuan Phuong area.
 
-## React Compiler
+### Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **NDVI change detection** — same-season comparison of Sentinel-2 composites (2018–2019 vs 2024–2025)
+- **NDBI urban expansion candidates** — combined NDVI loss + NDBI gain rule
+- **Interactive map** — MapLibre GL JS with toggleable vegetation loss, gain, and urban expansion candidate layers
+- **Analysis statistics** — real exported values from the Earth Engine pipeline
+- **Validation summary** — preliminary qualitative review of candidate areas
+- **Uncertainty-aware** — candidate layers are clearly labelled as unvalidated
 
-## Expanding the ESLint configuration
+### Current Status
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Phase 2 — Dashboard MVP** (pilot analysis)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Validation is preliminary and qualitative
+- Potential urban expansion is a candidate layer, not confirmed land-use change
+- Google Earth historical imagery was used only as qualitative visual reference
+- Static data only — no live Earth Engine connection
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Layer | Technology |
+| --- | --- |
+| Frontend | React 19 + TypeScript |
+| Build | Vite |
+| Map | MapLibre GL JS |
+| Styling | Vanilla CSS with design tokens |
+| Remote sensing | Google Earth Engine (Sentinel-2 SR Harmonized) |
+| GIS validation | QGIS LTR |
+
+## Quick Start
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The dashboard reads static JSON and GeoJSON files from `public/sample-analysis/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+├── public/sample-analysis/      # Static analysis outputs (JSON, GeoJSON, rasters)
+├── src/
+│   ├── components/              # Reusable UI components
+│   │   ├── cards/               # StatCard
+│   │   ├── layout/              # DashboardShell
+│   │   └── map/                 # ChangeMap, LayerControls
+│   ├── features/dashboard/      # DashboardPage
+│   ├── lib/data/                # Static data loading
+│   └── types/                   # TypeScript interfaces
+├── notebooks/                   # Earth Engine analysis notebooks
+├── docs/geo/                    # Methodology, indices, validation docs
+├── qgis/                       # QGIS validation project
+└── scripts/                    # GIS processing scripts
+```
+
+## Data Sources
+
+- **Sentinel-2 Surface Reflectance Harmonized** (`COPERNICUS/S2_SR_HARMONIZED`)
+- Same-season comparison: October–April
+- Cloud-masked median composites
+- Threshold: mean ± 1.5 standard deviation of NDVI/NDBI difference
+
+## Documentation
+
+- [Workflow](docs/geo/WORKFLOW.md) — processing steps and current results
+- [Indices](docs/geo/INDICES.md) — NDVI, NDBI formulas and interpretation
+- [Validation](docs/geo/VALIDATION.md) — qualitative validation protocol and records
+- [Project Plan](PROJECT_PLAN.md) — full project plan and roadmap
+- [Project Status](PROJECT_STATUS.md) — current state snapshot
+- [Progress Log](PROGRESS_LOG.md) — session log and handoff notes
+
+## Limitations
+
+- Detected change areas have not been validated with a full statistical accuracy assessment.
+- NDVI change alone does not prove land-use change.
+- Combined NDVI loss + NDBI gain is a stronger candidate signal but does not confirm urbanization.
+- The AOI is a small pilot area; thresholds should be recalculated for other areas.
+- Vectorized polygon-area sums differ slightly from raster pixel-area totals.
+- The dashboard is vector-only; basemap and GeoTIFF display are deferred.
+
+## License
+
+Private repository — not yet published.

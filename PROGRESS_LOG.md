@@ -200,3 +200,65 @@ Next:
 - Antigravity UI polish: improve visual hierarchy, spacing, responsive
   behavior, and map-control presentation while preserving the current data
   contracts and functionality.
+
+## Session - 2026-06-13 - Dashboard MVP UI/UX Polish
+
+Completed:
+
+- Redesigned the dashboard header with a dark gradient background, satellite
+  icon glow, and two status badges ("Static Data · No Live EE" and "Pilot
+  Analysis").
+- Expanded the CSS design system with semantic color tokens for loss, gain,
+  urban candidates, confirmed/unclear status, and dark header palette.
+- Added CSS transition tokens and hover effects on stat cards (lift + shadow).
+- Introduced section labels with eyebrow text and horizontal divider lines
+  for statistics, map, and methodology/validation sections.
+- Added a "Candidate · Not Validated" status badge in the dashboard intro.
+- Replaced the methodology list with icon-aligned items and a dedicated
+  caveat callout with border-left accent explaining NDVI limitations.
+- Added a validation summary table showing V01 (Unclear/Medium), V02
+  (Confirmed/High), and V03 (Confirmed/Medium) with colored status and
+  confidence chips.
+- Added a validation caveat callout stating this is preliminary qualitative
+  review, not statistical accuracy assessment.
+- Improved layer controls with active-state class toggling, polygon count
+  badges, and stronger caveat language.
+- Improved map container height and note overlay with backdrop blur.
+- Improved responsive breakpoints for laptop, desktop, and narrower screens.
+- Added Google Fonts (Inter) via index.html preconnect and link tag.
+- Updated index.html with proper SEO title, meta description.
+- Replaced the default Vite README with a real project description.
+- Updated PROJECT_STATUS.md with UI polish completion.
+
+Files changed:
+
+- `index.html`
+- `src/index.css`
+- `src/App.css`
+- `src/components/layout/DashboardShell.tsx`
+- `src/components/map/LayerControls.tsx`
+- `src/features/dashboard/DashboardPage.tsx`
+- `README.md`
+- `PROJECT_STATUS.md`
+- `PROGRESS_LOG.md`
+
+Preserved:
+
+- All JSON, GeoJSON, raster, notebook, and QGIS files unchanged.
+- All TypeScript types and data loading logic unchanged.
+- MapLibre map initialization, sources, layers, and toggles unchanged.
+- No live Earth Engine connection.
+- Uncertainty language preserved throughout.
+
+Verification:
+
+- `npm run build` passed.
+- `npm run lint` passed.
+- `git diff --check` passed.
+
+Next:
+
+- Add a basemap tile layer to the MapLibre map.
+- Add a before/after NDVI bar chart using Recharts.
+- Add a report preview page.
+- Consider code-splitting to resolve the Vite large-chunk warning.

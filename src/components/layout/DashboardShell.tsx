@@ -8,17 +8,20 @@ export function DashboardShell({ children }: PropsWithChildren) {
         <div className="dashboard-header__inner">
           <div className="dashboard-brand">
             <div className="dashboard-brand__icon">
-              <Satellite size={21} />
+              <Satellite size={20} />
             </div>
             <div>
-              <strong>Satellite Change Dashboard</strong>
-              <span>Phenikaa pilot analysis</span>
+              <strong>Satellite Change Detection</strong>
+              <span>Phenikaa pilot · Sentinel-2 SR</span>
             </div>
           </div>
           <div className="dashboard-header__meta">
-            Static Sentinel-2 analysis
-            <br />
-            No live Earth Engine connection
+            <span className="header-badge header-badge--static">
+              Static Data · No Live EE
+            </span>
+            <span className="header-badge header-badge--pilot">
+              Pilot Analysis
+            </span>
           </div>
         </div>
       </header>
