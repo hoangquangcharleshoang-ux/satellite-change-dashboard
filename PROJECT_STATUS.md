@@ -16,6 +16,8 @@ Phase 1 - Initial NDVI analysis pipeline and methodology documentation.
 - Calculated NDVI difference and mean +/- 1.5 standard deviation thresholds.
 - Exported current pilot statistics to
   `public/sample-analysis/phenikaa-area-ndvi-change.json`.
+- Made the committed notebook logically runnable from AOI definition through
+  NDVI statistics, vegetation loss/gain area calculation, and JSON export.
 - Documented the initial workflow, current results, and limitations in
   `docs/geo/WORKFLOW.md` and `docs/geo/INDICES.md`.
 
@@ -32,11 +34,11 @@ Phase 1 - Initial NDVI analysis pipeline and methodology documentation.
 
 - Results have not yet been validated.
 - Change-zone GeoJSON has not yet been exported.
-- The committed notebook currently contains the AOI, filtering, cloud masking,
-  and composite setup; the downstream NDVI statistics and export steps should
-  be captured in the notebook for full reproducibility.
+- Re-running the notebook requires an authenticated Earth Engine environment
+  with the configured Google Cloud project and the `ee` and `geemap` packages.
 
 ## Next Step
 
-Complete initial visual validation against historical reference imagery and
-record the evidence and validation notes.
+Run the notebook in the authenticated Earth Engine environment, compare the
+regenerated JSON statistics with the committed output, then begin visual
+validation against historical reference imagery.

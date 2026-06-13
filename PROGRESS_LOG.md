@@ -52,3 +52,28 @@ Next:
 
 - Validate detected change areas against historical reference imagery and
   document the validation evidence.
+
+## Session - 2026-06-13 - Reproducible NDVI Notebook
+
+Completed:
+
+- Rebuilt `notebooks/01_sentinel2_ndvi_change_phenikaa_area.ipynb` as a
+  logically runnable top-to-bottom workflow.
+- Added NDVI before/after calculation, NDVI difference statistics, mean +/-
+  1.5 standard deviation thresholds, vegetation loss/gain masks, and area
+  totals in km2.
+- Added local JSON export using the existing
+  `public/sample-analysis/phenikaa-area-ndvi-change.json` schema.
+- Cleared all saved notebook execution counts and outputs.
+- Updated `PROJECT_STATUS.md` to record that JSON regeneration is covered.
+
+Verification:
+
+- Notebook JSON structure and Python cell syntax checked locally.
+- Earth Engine computations were not executed during this session.
+- No frontend files changed; no npm build required.
+
+Next:
+
+- Run the notebook in the authenticated Earth Engine environment and compare
+  the regenerated statistics with the committed JSON before validation.
