@@ -162,3 +162,41 @@ Validation note:
 Next:
 
 - Begin the dashboard MVP or continue with more qualitative validation samples.
+
+## Session - 2026-06-13 - Dashboard MVP Technical Foundation
+
+Completed:
+
+- Replaced the default Vite page with a functional React + TypeScript
+  dashboard.
+- Added typed static-data loading for the existing analysis JSON and three
+  GeoJSON candidate layers.
+- Added a MapLibre vector map centered on the Phenikaa AOI.
+- Added red vegetation-loss, blue vegetation-gain, and orange potential urban
+  expansion layers with toggles and a legend.
+- Added six stat cards, loading/error states, and methodology and validation
+  summary sections.
+- Organized code under `src/components`, `src/features/dashboard`, `src/lib`,
+  and `src/types`.
+- Updated ESLint ignores so frontend lint does not scan `.venv` dependencies.
+
+Verification:
+
+- `npm run build` passed.
+- `npm run lint` passed.
+- `git diff --check` passed.
+- Browser verification confirmed real stats, visible polygon layers, working
+  toggles, and no console errors.
+- No notebook, JSON, GeoJSON, raster, QGIS project, credential, or environment
+  files were changed.
+
+Known limitation:
+
+- Vite reports a large initial JavaScript chunk warning; code splitting is
+  deferred until the dashboard surface grows.
+
+Next:
+
+- Antigravity UI polish: improve visual hierarchy, spacing, responsive
+  behavior, and map-control presentation while preserving the current data
+  contracts and functionality.

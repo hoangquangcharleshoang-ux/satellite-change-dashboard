@@ -4,7 +4,7 @@
 
 ## Current Phase
 
-Phase 1 - NDVI + NDBI analysis pipeline and qualitative validation preparation.
+Phase 2 - Dashboard MVP technical foundation.
 
 ## Completed
 
@@ -28,6 +28,12 @@ Phase 1 - NDVI + NDBI analysis pipeline and qualitative validation preparation.
 - Added the first three qualitative validation samples: two Confirmed
   candidates and one Unclear candidate.
 - Saved the QGIS validation project at `qgis/phenikaa-validation.qgz`.
+- Replaced the default Vite page with a React + TypeScript dashboard that reads
+  the committed static JSON and GeoJSON analysis outputs.
+- Added a MapLibre vector map with vegetation loss, vegetation gain, and
+  potential urban expansion layers, toggles, and legend.
+- Added analysis stat cards, loading/error states, and methodology and
+  validation summaries.
 - Documented the initial workflow, current results, and limitations in
   `docs/geo/WORKFLOW.md` and `docs/geo/INDICES.md`.
 
@@ -54,8 +60,11 @@ Phase 1 - NDVI + NDBI analysis pipeline and qualitative validation preparation.
   fragmented polygons.
 - Vectorized polygon-area sums differ slightly from raster pixel-area totals.
 - Visual RGB layers are multi-date median composites, not single-date scenes.
+- The dashboard map is vector-only; basemap and GeoTIFF display are deferred.
+- The production bundle currently reports a large-chunk warning because
+  MapLibre and the dashboard load in one initial bundle.
 
 ## Next Step
 
-Begin the dashboard MVP or continue reviewing additional candidate samples to
-broaden the qualitative validation evidence.
+Have Antigravity polish the Dashboard MVP visual hierarchy and responsive
+details without changing the static-data contracts or geospatial methodology.
