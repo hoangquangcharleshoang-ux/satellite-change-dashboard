@@ -32,6 +32,8 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   the committed static JSON and GeoJSON analysis outputs.
 - Added a MapLibre vector map with vegetation loss, vegetation gain, and
   potential urban expansion layers, toggles, and legend.
+- Added a keyless OpenStreetMap raster basemap beneath the candidate polygons
+  to provide road, neighborhood, and place context.
 - Added analysis stat cards, loading/error states, and methodology and
   validation summaries.
 - Documented the initial workflow, current results, and limitations in
@@ -66,11 +68,12 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   fragmented polygons.
 - Vectorized polygon-area sums differ slightly from raster pixel-area totals.
 - Visual RGB layers are multi-date median composites, not single-date scenes.
-- The dashboard map is vector-only; basemap and GeoTIFF display are deferred.
+- The OpenStreetMap basemap requires an internet connection and is contextual
+  reference only; GeoTIFF display remains deferred.
 - The production bundle currently reports a large-chunk warning because
   MapLibre and the dashboard load in one initial bundle.
 
 ## Next Step
 
-Improve the dashboard with a basemap tile layer, before/after NDVI chart, and
-report preview page. Consider code-splitting to resolve the Vite chunk warning.
+Improve the dashboard with a before/after NDVI chart and report preview page.
+Consider code-splitting to resolve the Vite chunk warning.

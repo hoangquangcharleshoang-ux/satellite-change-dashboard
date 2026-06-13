@@ -18,14 +18,20 @@ interface ChangeMapProps {
 
 const mapStyle: StyleSpecification = {
   version: 8,
-  sources: {},
+  sources: {
+    openstreetmap: {
+      type: 'raster',
+      tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+      tileSize: 256,
+      maxzoom: 19,
+      attribution: '&copy; OpenStreetMap contributors',
+    },
+  },
   layers: [
     {
-      id: 'background',
-      type: 'background',
-      paint: {
-        'background-color': '#e8efeb',
-      },
+      id: 'openstreetmap',
+      type: 'raster',
+      source: 'openstreetmap',
     },
   ],
 }
@@ -79,7 +85,7 @@ export function ChangeMap({ summary, layers, visibility }: ChangeMapProps) {
           },
           paint: {
             'fill-color': layer.color,
-            'fill-opacity': layer.id === 'potential-urban-expansion' ? 0.58 : 0.42,
+            'fill-opacity': layer.id === 'potential-urban-expansion' ? 0.36 : 0.28,
           },
         })
         map.addLayer({
@@ -91,7 +97,7 @@ export function ChangeMap({ summary, layers, visibility }: ChangeMapProps) {
           },
           paint: {
             'line-color': layer.color,
-            'line-width': layer.id === 'potential-urban-expansion' ? 1.4 : 0.8,
+            'line-width': layer.id === 'potential-urban-expansion' ? 1.8 : 1.25,
           },
         })
       })
@@ -135,7 +141,8 @@ export function ChangeMap({ summary, layers, visibility }: ChangeMapProps) {
     <div className="map-container">
       <div ref={containerRef} aria-label="Phenikaa change detection map" />
       <div className="map-note">
-        Vector-only technical map. Basemap and GeoTIFF display are deferred.
+        Basemap: OpenStreetMap. Candidate polygons are derived from Sentinel-2
+        analysis.
       </div>
     </div>
   )

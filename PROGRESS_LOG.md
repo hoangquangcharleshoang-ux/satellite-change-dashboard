@@ -262,3 +262,36 @@ Next:
 - Add a before/after NDVI bar chart using Recharts.
 - Add a report preview page.
 - Consider code-splitting to resolve the Vite large-chunk warning.
+
+## Session - 2026-06-13 - Dashboard Map Basemap Context
+
+Completed:
+
+- Added a public, keyless OpenStreetMap raster basemap beneath the existing
+  MapLibre GeoJSON candidate layers.
+- Preserved the Phenikaa AOI center, all three candidate layers, layer
+  toggles, legend, polygon counts, and loading/error states.
+- Reduced polygon fill opacity and strengthened polygon outlines so roads,
+  neighborhoods, and place labels remain visible.
+- Added a map note identifying OpenStreetMap as the basemap and Sentinel-2
+  analysis as the source of the candidate polygons.
+- Kept all JSON, GeoJSON, raster, notebook, QGIS, credential, and environment
+  files unchanged.
+
+Verification:
+
+- `npm run build` passed.
+- `npm run lint` passed.
+- `git diff --check` passed.
+- Browser verification confirmed that the basemap appears, all layer toggles
+  work, and no console errors occur.
+
+Known limitation:
+
+- OpenStreetMap tiles require an internet connection and are contextual
+  reference only; the dashboard still does not display GeoTIFF outputs.
+
+Next:
+
+- Add a before/after NDVI chart and report preview page.
+- Consider code-splitting to resolve the Vite large-chunk warning.
