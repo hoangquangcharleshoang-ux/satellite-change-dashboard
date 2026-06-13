@@ -12,4 +12,6 @@
 - First threshold method: NDVI difference using mean ± 1–1.5 standard deviation
 - Agent tools: Codex Plus and Antigravity Pro
 - Graphify: not used
+- First combined urban-expansion candidate rule: strong NDVI loss AND strong
+  NDBI gain, explicitly treated as `candidate_not_validated`
 - CodeGraph / Understand-Anything: delayed, not used in Phase 0–2

@@ -1,40 +1,64 @@
-# Validation Notes
+# Qualitative Validation
 
 ## Purpose
 
-This document records visual validation notes for the initial NDVI change detection result around the Phenikaa Hospital / Phu Dien - Xuan Phuong pilot AOI.
+This document provides a template for qualitative visual review of vegetation
+loss, vegetation gain, and potential urban expansion candidates in the
+Phenikaa Hospital / Phu Dien - Xuan Phuong pilot AOI.
 
-## Reference Sources
+No validation evidence or final accuracy is claimed yet.
 
-- Google Earth / Google Maps historical imagery
-- Sentinel-2 NDVI change result from:
-  - `public/sample-analysis/phenikaa-area-ndvi-change.json`
-  - `notebooks/01_sentinel2_ndvi_change_phenikaa_area.ipynb`
+## Reference Use
 
-## Current NDVI Result Summary
+Google Earth historical imagery may be used only as a qualitative visual
+reference. Google Earth imagery can be a mosaic assembled from different
+acquisition dates, so the displayed date may not represent every visible
+location equally.
 
-- Before period: 2018-10-01 to 2019-04-30
-- After period: 2024-10-01 to 2025-04-30
-- Vegetation loss area: 0.5842980238744406 km²
-- Vegetation gain area: 0.35884955265580726 km²
+The model outputs to review are:
 
-## Visual Validation Table
+- `public/sample-analysis/geojson/vegetation-loss.geojson`
+- `public/sample-analysis/geojson/vegetation-gain.geojson`
+- `public/sample-analysis/geojson/potential-urban-expansion.geojson`
 
-| ID  | Location / description | NDVI result | Visual check                   | Notes |
-| --- | ---------------------- | ----------- | ------------------------------ | ----- |
-| V01 |                        | Loss        | Confirmed / Unclear / Rejected |       |
-| V02 |                        | Loss        | Confirmed / Unclear / Rejected |       |
-| V03 |                        | Gain        | Confirmed / Unclear / Rejected |       |
-| V04 |                        | Gain        | Confirmed / Unclear / Rejected |       |
+## Review Labels
 
-## Interpretation Rules
+Status:
 
-- Confirmed: NDVI change matches visible land surface change in historical imagery.
-- Unclear: imagery is ambiguous, seasonal, cloudy, or not enough evidence.
-- Rejected: NDVI result does not match visible reference imagery.
+- `Confirmed`: visual reference supports the model result.
+- `Unclear`: imagery timing, quality, seasonality, or visible evidence is
+  insufficient.
+- `Rejected`: visual reference does not support the model result.
+
+Confidence:
+
+- `High`: clear and consistent visual evidence.
+- `Medium`: plausible evidence with some ambiguity.
+- `Low`: weak, incomplete, or conflicting evidence.
+
+## Validation Table Template
+
+| ID | Location / description | Model result | Visual reference | Confidence | Status | Notes |
+| -- | ---------------------- | ------------ | ---------------- | ---------- | ------ | ----- |
+| PLACEHOLDER-01 | Placeholder only - replace after review | Potential urban expansion | Not reviewed | Low | Unclear | No validation evidence recorded |
+
+## Review Procedure
+
+1. Open a candidate polygon and record its location or description.
+2. Compare imagery near the before and after analysis periods when available.
+3. Record what is visually observable without assuming the cause.
+4. Assign one status and one confidence label.
+5. Record imagery-date uncertainty, mosaicking, clouds, shadows, or mixed
+   pixels in the notes.
 
 ## Limitations
 
-- This is visual validation only, not full statistical accuracy assessment.
-- NDVI change can be affected by crop cycles, rainfall, vegetation health, shadows, and residual cloud effects.
-- More rigorous validation should use manually labeled sample points and an accuracy assessment table.
+- Current validation is qualitative only, not a full statistical accuracy
+  assessment.
+- Google Earth imagery can be temporally inconsistent within one view.
+- NDVI loss does not prove land-use change.
+- NDBI gain can represent bare soil, roofs, shadows, or other non-urban
+  surfaces.
+- Potential urban expansion is a candidate layer that requires manual review.
+- A later accuracy assessment should use a documented sample design, manually
+  labeled reference points, and confusion-matrix metrics.

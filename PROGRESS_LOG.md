@@ -77,3 +77,34 @@ Next:
 
 - Run the notebook in the authenticated Earth Engine environment and compare
   the regenerated statistics with the committed JSON before validation.
+
+## Session - 2026-06-13 - NDBI and Urban Expansion Candidates
+
+Completed:
+
+- Extended the reproducible notebook with NDBI before/after images, NDBI
+  difference statistics, and mean +/- 1.5 standard deviation thresholds.
+- Added the exploratory potential urban expansion rule combining strong NDVI
+  loss with strong NDBI gain.
+- Executed the notebook successfully against Earth Engine.
+- Regenerated the backward-compatible dashboard JSON with real NDBI and
+  combined-candidate statistics.
+- Exported vegetation loss, vegetation gain, and potential urban expansion
+  candidate GeoJSON files.
+- Updated index, workflow, validation, status, and decision documentation.
+
+Current combined result:
+
+- Potential urban expansion candidate area: 332183.80386514054 m2
+  (`0.3321838038651405 km2`)
+- Status: `candidate_not_validated`
+
+Verification:
+
+- Earth Engine notebook execution completed successfully.
+- No frontend files changed; no npm build required.
+
+Next:
+
+- Perform qualitative manual review of exported candidate polygons and record
+  evidence, confidence, and Confirmed / Unclear / Rejected status.

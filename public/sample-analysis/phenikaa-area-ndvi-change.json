@@ -21,7 +21,9 @@
     "composite": "median composite",
     "threshold": "mean ± 1.5 standard deviation of NDVI difference",
     "lossRule": "NDVI_Diff < mean - 1.5 * stdDev",
-    "gainRule": "NDVI_Diff > mean + 1.5 * stdDev"
+    "gainRule": "NDVI_Diff > mean + 1.5 * stdDev",
+    "combinedRule": "NDVI_Diff < NDVI loss threshold AND NDBI_Diff > NDBI gain threshold",
+    "combinedRuleCaveat": "Potential urban expansion is a candidate layer and is not validated land-use change."
   },
   "imageCounts": {
     "before": 5,
@@ -32,7 +34,21 @@
     "differenceStdDev": 0.1504748968728374,
     "vegetationLossThreshold": -0.2547636603152048,
     "vegetationGainThreshold": 0.1966610303033074,
-    "vegetationLossKm2": 0.5842980238744406,
-    "vegetationGainKm2": 0.35884955265580726
+    "vegetationLossKm2": 0.5842980238744534,
+    "vegetationGainKm2": 0.35884955265581303
+  },
+  "ndbiStats": {
+    "differenceMean": -0.023043401383381405,
+    "differenceStdDev": 0.10776774628079479,
+    "builtUpGainThreshold": 0.1386082180378108,
+    "builtUpDecreaseThreshold": -0.1846950208045736
+  },
+  "combinedChange": {
+    "name": "Potential urban expansion",
+    "rule": "NDVI_Diff < NDVI loss threshold AND NDBI_Diff > NDBI gain threshold",
+    "areaM2": 332183.80386514054,
+    "areaKm2": 0.3321838038651405,
+    "status": "candidate_not_validated",
+    "caveat": "This candidate layer is not confirmed or validated land-use change."
   }
 }

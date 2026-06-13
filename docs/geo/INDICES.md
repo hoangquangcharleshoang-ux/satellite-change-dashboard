@@ -71,6 +71,53 @@ The `1.5 * stdDev` rule identifies unusually large negative and positive
 differences relative to this AOI. It is an exploratory threshold and is not a
 validated classification rule.
 
+## NDBI
+
+The Normalized Difference Built-up Index (NDBI) is added as a second
+exploratory signal:
+
+```text
+NDBI = (SWIR - NIR) / (SWIR + NIR)
+```
+
+For Sentinel-2:
+
+- SWIR is band `B11`, with a native spatial resolution of 20 m.
+- NIR is band `B8`, with a native spatial resolution of 10 m.
+
+NDBI is calculated for the same median before and after composites:
+
+```text
+NDBI_difference = NDBI_after - NDBI_before
+```
+
+A strong positive NDBI difference can indicate an increase in built-up-like
+spectral response, but NDBI alone does not prove new construction. Bare soil,
+dry surfaces, roofs, shadows, and mixed pixels can produce similar signals.
+
+The current NDBI thresholds use the same AOI-relative rule:
+
+```text
+built-up gain threshold = mean(NDBI_difference) + 1.5 * stdDev
+built-up decrease threshold = mean(NDBI_difference) - 1.5 * stdDev
+```
+
+## Potential Urban Expansion Candidate
+
+NDVI loss alone does not prove urbanization because vegetation can decline for
+many temporary or non-urban reasons. Combining strong NDVI loss with strong
+NDBI gain is a stronger candidate signal because it requires both reduced
+vegetation greenness and increased built-up-like spectral response:
+
+```text
+potential urban expansion =
+    NDVI_difference < NDVI loss threshold
+    AND
+    NDBI_difference > NDBI gain threshold
+```
+
+This remains a candidate layer, not confirmed land-use change.
+
 ## Current Pilot Results
 
 Source: `public/sample-analysis/phenikaa-area-ndvi-change.json`
@@ -83,8 +130,13 @@ Source: `public/sample-analysis/phenikaa-area-ndvi-change.json`
 | NDVI difference standard deviation | 0.1504748968728374 |
 | Vegetation loss threshold | -0.2547636603152048 |
 | Vegetation gain threshold | 0.1966610303033074 |
-| Vegetation loss area | 0.5842980238744406 km2 |
-| Vegetation gain area | 0.35884955265580726 km2 |
+| Vegetation loss area | 0.5842980238744534 km2 |
+| Vegetation gain area | 0.35884955265581303 km2 |
+| NDBI difference mean | -0.023043401383381405 |
+| NDBI difference standard deviation | 0.10776774628079479 |
+| NDBI built-up gain threshold | 0.1386082180378108 |
+| NDBI built-up decrease threshold | -0.1846950208045736 |
+| Potential urban expansion candidate area | 0.3321838038651405 km2 |
 
 ## Limitations
 
@@ -93,8 +145,15 @@ Source: `public/sample-analysis/phenikaa-area-ndvi-change.json`
 - NDVI change alone does not prove land-use change. Differences can also result
   from vegetation condition, crop cycles, rainfall, soil moisture, shadows, or
   residual cloud contamination.
+- Bare soil can be confused with built-up surfaces in NDBI.
+- Shadows and different roof materials can affect NDBI.
+- Sentinel-2 mixed pixels and the combination of 10 m `B8` with 20 m `B11`
+  can blur small or narrow features.
 - The cloud mask and median composites reduce cloud effects but cannot
   guarantee cloud-free, shadow-free, or directly comparable observations.
+- Google Earth historical imagery is a qualitative visual reference only.
+- Potential urban expansion candidates still require visual and manual
+  validation.
 - The AOI is a small pilot area around Phenikaa Hospital / Phu Dien - Xuan
   Phuong. The threshold and results should not be generalized to Hanoi or other
   study areas without recalculation and validation.

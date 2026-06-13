@@ -4,7 +4,7 @@
 
 ## Current Phase
 
-Phase 1 - Initial NDVI analysis pipeline and methodology documentation.
+Phase 1 - NDVI + NDBI analysis pipeline and qualitative validation preparation.
 
 ## Completed
 
@@ -18,6 +18,11 @@ Phase 1 - Initial NDVI analysis pipeline and methodology documentation.
   `public/sample-analysis/phenikaa-area-ndvi-change.json`.
 - Made the committed notebook logically runnable from AOI definition through
   NDVI statistics, vegetation loss/gain area calculation, and JSON export.
+- Extended the notebook with NDBI difference statistics and a potential urban
+  expansion candidate rule combining strong NDVI loss with strong NDBI gain.
+- Exported dashboard-ready vegetation loss, vegetation gain, and potential
+  urban expansion GeoJSON candidate layers.
+- Added a qualitative validation protocol without claiming accuracy.
 - Documented the initial workflow, current results, and limitations in
   `docs/geo/WORKFLOW.md` and `docs/geo/INDICES.md`.
 
@@ -27,18 +32,23 @@ Phase 1 - Initial NDVI analysis pipeline and methodology documentation.
 - After images: 10
 - NDVI difference mean: -0.029051315005948708
 - NDVI difference standard deviation: 0.1504748968728374
-- Vegetation loss area: 0.5842980238744406 km2
-- Vegetation gain area: 0.35884955265580726 km2
+- Vegetation loss area: 0.5842980238744534 km2
+- Vegetation gain area: 0.35884955265581303 km2
+- NDBI difference mean: -0.023043401383381405
+- NDBI difference standard deviation: 0.10776774628079479
+- Potential urban expansion candidate area: 0.3321838038651405 km2
 
 ## Known Gaps
 
 - Results have not yet been validated.
-- Change-zone GeoJSON has not yet been exported.
 - Re-running the notebook requires an authenticated Earth Engine environment
   with the configured Google Cloud project and the `ee` and `geemap` packages.
+- GeoJSON polygons are unvalidated candidate outputs and can contain small,
+  fragmented polygons.
+- Vectorized polygon-area sums differ slightly from raster pixel-area totals.
 
 ## Next Step
 
-Run the notebook in the authenticated Earth Engine environment, compare the
-regenerated JSON statistics with the committed output, then begin visual
-validation against historical reference imagery.
+Review the exported candidate polygons against historical reference imagery
+and record Confirmed / Unclear / Rejected labels with confidence levels in
+`docs/geo/VALIDATION.md`.

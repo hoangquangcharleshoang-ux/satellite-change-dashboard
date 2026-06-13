@@ -1,10 +1,11 @@
-# Initial NDVI Change Detection Workflow
+# Initial NDVI + NDBI Change Detection Workflow
 
 ## Purpose and AOI
 
-This initial pipeline detects unusually large NDVI decreases and increases in a
-small peri-urban pilot area around Phenikaa University Hospital and the Phu
-Dien - Xuan Phuong area of Hanoi.
+This initial pipeline detects unusually large NDVI changes and combines strong
+NDVI loss with strong NDBI gain to identify potential urban expansion
+candidates in a small peri-urban pilot area around Phenikaa University
+Hospital and the Phu Dien - Xuan Phuong area of Hanoi.
 
 - AOI center: `105.749433, 21.039419`
 - AOI bounding polygon: approximately `105.7350-105.7639 E` and
@@ -114,11 +115,67 @@ loss and gain masks, then reporting the totals in square kilometres.
 
 Current pilot results:
 
-- Vegetation loss area: `0.5842980238744406 km2`
-- Vegetation gain area: `0.35884955265580726 km2`
+- Vegetation loss area: `0.5842980238744534 km2`
+- Vegetation gain area: `0.35884955265581303 km2`
 
 These figures describe statistically unusual NDVI changes within the pilot
 AOI. They are not yet confirmed land-use-change areas.
+
+### 8. Calculate NDBI Difference
+
+NDBI is calculated from Sentinel-2 bands `B11` and `B8`:
+
+```text
+NDBI = (B11 - B8) / (B11 + B8)
+NDBI_difference = NDBI_after - NDBI_before
+```
+
+The NDBI difference mean and standard deviation are calculated across the AOI.
+The built-up gain threshold is `mean + 1.5 * stdDev`; the decrease threshold is
+`mean - 1.5 * stdDev`.
+
+Current NDBI results:
+
+- Difference mean: `-0.023043401383381405`
+- Difference standard deviation: `0.10776774628079479`
+- Built-up gain threshold: `0.1386082180378108`
+- Built-up decrease threshold: `-0.1846950208045736`
+
+### 9. Create Potential Urban Expansion Candidates
+
+NDVI loss alone does not prove urbanization. The pipeline therefore creates a
+stronger exploratory candidate signal:
+
+```text
+potential_urban_expansion =
+    NDVI_Diff < NDVI loss threshold
+    AND
+    NDBI_Diff > NDBI gain threshold
+```
+
+Current candidate area:
+
+- `332183.80386514054 m2`
+- `0.3321838038651405 km2`
+
+This mask identifies candidate locations only. It is not confirmed or
+validated urban expansion.
+
+### 10. Export Dashboard Outputs
+
+The notebook writes the backward-compatible dashboard JSON and vectorizes the
+three change masks into local GeoJSON files:
+
+```text
+public/sample-analysis/phenikaa-area-ndvi-change.json
+public/sample-analysis/geojson/vegetation-loss.geojson
+public/sample-analysis/geojson/vegetation-gain.geojson
+public/sample-analysis/geojson/potential-urban-expansion.geojson
+```
+
+The AOI is small enough for local Earth Engine `getInfo()` vector export.
+GeoJSON features include change type, polygon area, and
+`candidate_not_validated` status.
 
 ## Current Output
 
@@ -132,6 +189,9 @@ The current JSON output records:
 - NDVI difference mean and standard deviation
 - vegetation loss and gain thresholds
 - vegetation loss and gain areas
+- NDBI difference mean, standard deviation, and thresholds
+- combined candidate rule, area, status, and caveat
+- local GeoJSON candidate layers
 
 ## Limitations
 
@@ -140,6 +200,12 @@ The current JSON output records:
 - NDVI alone does not prove land-use change. It measures vegetation greenness,
   and changes can reflect crop cycles, rainfall, vegetation health, soil
   moisture, shadows, or other temporary conditions.
+- NDVI loss plus NDBI gain is a stronger candidate signal than NDVI loss alone,
+  but it still does not prove urbanization.
+- Bare soil can be confused with built-up surfaces, while shadows and roof
+  materials can affect NDBI.
+- Sentinel-2 `B8` is 10 m and `B11` is 20 m. Resampling and mixed pixels can
+  blur small features and boundaries.
 - The scene-level cloud filter, SCL mask, and median composite reduce cloud and
   shadow effects but can leave residual artifacts or create composites from
   observations acquired under different conditions.
@@ -148,3 +214,8 @@ The current JSON output records:
 - This AOI is a pilot area. Its statistical threshold is specific to the
   Phenikaa Hospital / Phu Dien - Xuan Phuong analysis and should be recalculated
   and validated for any other AOI.
+- Google Earth historical imagery is a qualitative visual reference only and
+  can be a mosaic of imagery acquired on different dates.
+- All candidate change layers require visual and manual validation.
+- GeoJSON polygon-area sums can differ slightly from raster pixel-area totals
+  because vectorization approximates raster boundaries.
