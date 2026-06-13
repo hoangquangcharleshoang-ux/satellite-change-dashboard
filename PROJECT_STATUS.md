@@ -50,6 +50,8 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   with status and confidence chips, methodology caveat callouts, status badges,
   better responsive breakpoints, and Google Fonts (Inter).
 - Replaced the default Vite README with a real project description.
+- Polished the README into a recruiter- and GIS-reviewer-oriented portfolio
+  document with real dashboard, report, and QGIS screenshots.
 
 ## Current Results
 
@@ -81,5 +83,5 @@ Phase 2 - Dashboard MVP with polished UI/UX.
 
 ## Next Step
 
-Continue with additional validation samples and a QGIS print layout export.
-Consider route-level code-splitting to resolve the Vite chunk warning.
+Expand validation beyond V01-V03 and create a documented statistical accuracy
+assessment. Consider route-level code-splitting before deployment.

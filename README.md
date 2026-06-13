@@ -1,97 +1,258 @@
 # Satellite Change Detection Dashboard
 
-A portfolio-quality remote sensing dashboard for detecting and visualizing vegetation change and potential urban expansion in peri-urban Hanoi using Sentinel-2 Surface Reflectance imagery.
+A reproducible remote sensing and WebGIS portfolio project for detecting,
+reviewing, and communicating vegetation change and potential urban expansion
+signals around Phenikaa Hospital and the Phu Dien - Xuan Phuong area of Hanoi.
 
-## Overview
+The project connects a Google Earth Engine analysis pipeline to QGIS validation
+and a React dashboard. It uses real Sentinel-2 outputs rather than mock
+dashboard data.
 
-This project implements a complete NDVI/NDBI change detection pipeline from Google Earth Engine through to a web-based interactive dashboard. The pilot analysis covers the Phenikaa University Hospital / Phu Dien – Xuan Phuong area.
+> **Important:** Potential urban expansion is a candidate layer, not confirmed
+> land-use change. Validation is preliminary and is not a full statistical
+> accuracy assessment.
 
-### Key Features
+## Why This Project Matters
 
-- **NDVI change detection** — same-season comparison of Sentinel-2 composites (2018–2019 vs 2024–2025)
-- **NDBI urban expansion candidates** — combined NDVI loss + NDBI gain rule
-- **Interactive map** — MapLibre GL JS with toggleable vegetation loss, gain, and urban expansion candidate layers
-- **Analysis statistics** — real exported values from the Earth Engine pipeline
-- **Validation summary** — preliminary qualitative review of candidate areas
-- **Uncertainty-aware** — candidate layers are clearly labelled as unvalidated
+This project demonstrates an end-to-end geospatial workflow:
 
-### Current Status
+1. Build a reproducible Sentinel-2 analysis in Earth Engine.
+2. Export statistics, candidate polygons, and comparison rasters.
+3. Inspect and qualitatively validate candidate locations in QGIS.
+4. Communicate results and uncertainty through an interactive WebGIS
+   dashboard and report preview.
 
-**Phase 2 — Dashboard MVP** (pilot analysis)
+It is designed as a job-ready portfolio example for remote sensing, GIS
+analysis, spatial data production, QGIS, and frontend geospatial visualization.
 
-- Validation is preliminary and qualitative
-- Potential urban expansion is a candidate layer, not confirmed land-use change
-- Google Earth historical imagery was used only as qualitative visual reference
-- Static data only — no live Earth Engine connection
+## Key Features
+
+- Reproducible Sentinel-2 Surface Reflectance Harmonized notebook.
+- Same-season before/after comparison to reduce seasonal mismatch.
+- SCL cloud masking and median composites.
+- NDVI vegetation loss and gain detection using an AOI-relative
+  `mean +/- 1.5 standard deviation` threshold.
+- Potential urban expansion candidate rule combining strong NDVI loss with
+  strong NDBI gain.
+- JSON statistics, GeoJSON candidate layers, and GeoTIFF comparison outputs.
+- QGIS validation project and exported validation map.
+- MapLibre dashboard with an OpenStreetMap basemap, layer controls, statistics,
+  and an area comparison chart.
+- Portfolio-friendly `/report` preview using the same static analysis JSON.
+- Explicit uncertainty language throughout the analysis and interface.
+
+## Demo Screenshots
+
+### Dashboard Overview
+
+![Dashboard overview with analysis statistics and area comparison chart](docs/assets/dashboard-overview.png)
+
+### Interactive Candidate Map
+
+![MapLibre candidate change map with OpenStreetMap context and layer controls](docs/assets/dashboard-map.png)
+
+### Report Preview
+
+![Preliminary report preview showing study data and analysis results](docs/assets/report-preview.png)
+
+### QGIS Validation Map
+
+![QGIS qualitative validation map for the Phenikaa pilot area](docs/assets/qgis-validation-map.png.png)
+
+The full QGIS map exports are also available as
+[PNG](qgis/outputs/phenikaa-validation-map.png) and
+[PDF](qgis/outputs/phenikaa-validation-map.pdf).
+
+## Dataset and AOI
+
+| Item | Value |
+| --- | --- |
+| Area of interest | Phenikaa Hospital Area, Hanoi |
+| Local description | Phu Dien - Xuan Phuong area near Phenikaa University Hospital |
+| AOI center | `105.749433, 21.039419` |
+| Dataset | `COPERNICUS/S2_SR_HARMONIZED` |
+| Before period | `2018-10-01` to `2019-04-30` |
+| After period | `2024-10-01` to `2025-04-30` |
+| Before image count | 5 |
+| After image count | 10 |
+
+The October-to-April window is used for both periods. This same-season
+comparison reduces, but does not eliminate, differences caused by vegetation
+phenology, rainfall, crop cycles, and other seasonal conditions.
+
+## Methodology
+
+1. Filter Sentinel-2 SR Harmonized imagery by AOI, date, and scene cloud
+   percentage.
+2. Apply a pixel-level Sentinel-2 Scene Classification Layer cloud and shadow
+   mask.
+3. Create before and after median composites.
+4. Calculate NDVI from `B8` and `B4`.
+5. Calculate `NDVI_difference = NDVI_after - NDVI_before`.
+6. Classify unusual vegetation loss and gain using:
+
+   ```text
+   loss = NDVI_difference < mean - 1.5 * stdDev
+   gain = NDVI_difference > mean + 1.5 * stdDev
+   ```
+
+7. Calculate NDBI from `B11` and `B8`.
+8. Identify potential urban expansion candidates using:
+
+   ```text
+   NDVI_Diff < NDVI loss threshold
+   AND
+   NDBI_Diff > NDBI gain threshold
+   ```
+
+9. Export statistics, vector candidate layers, and reproducible comparison
+   rasters for QGIS and the dashboard.
+
+Detailed methodology:
+
+- [Analysis workflow](docs/geo/WORKFLOW.md)
+- [NDVI and NDBI interpretation](docs/geo/INDICES.md)
+- [Qualitative validation protocol](docs/geo/VALIDATION.md)
+
+## Results Summary
+
+Source: [`public/sample-analysis/phenikaa-area-ndvi-change.json`](public/sample-analysis/phenikaa-area-ndvi-change.json)
+
+| Metric | Current pilot result |
+| --- | ---: |
+| Before image count | 5 |
+| After image count | 10 |
+| NDVI difference mean | -0.029051315005948708 |
+| NDVI difference standard deviation | 0.1504748968728374 |
+| Vegetation loss area | 0.5842980238744534 km2 |
+| Vegetation gain area | 0.35884955265581303 km2 |
+| Potential urban expansion candidate area | 0.3321838038651405 km2 |
+
+These areas describe statistically unusual spectral-change signals within the
+pilot AOI. They do not independently prove the cause of change.
+
+## Validation Summary
+
+Three potential urban expansion candidate locations received initial
+qualitative review using QGIS candidate polygons, reproducible Sentinel-2
+comparison layers, and optional Google Earth historical imagery context.
+
+| Sample | Qualitative status | Confidence |
+| --- | --- | --- |
+| V01 | Unclear | Medium |
+| V02 | Confirmed | High |
+| V03 | Confirmed | Medium |
+
+Google Earth is used only as a qualitative visual reference, not authoritative
+ground truth. These three samples are preliminary observations and do not form
+a full statistical accuracy assessment.
+
+## Limitations
+
+- Potential urban expansion is a candidate layer, not confirmed land-use
+  change.
+- Validation is preliminary and includes only three qualitative samples.
+- Google Earth historical imagery is a qualitative visual reference only and
+  can contain imagery from inconsistent acquisition dates.
+- Sentinel-2 mixed pixels can blur small features and boundaries.
+- NDBI uses `B11` at 20 m and `B8` at 10 m, so resampling affects the combined
+  candidate signal.
+- Seasonal effects, crop cycles, rainfall, soil moisture, cloud artifacts, and
+  composite differences can affect interpretation.
+- Bare soil and disturbed surfaces can resemble built-up surfaces in NDBI.
+- The AOI-relative thresholds should be recalculated and validated before use
+  in another study area.
+- Vectorized polygon-area totals can differ slightly from raster pixel-area
+  totals.
 
 ## Tech Stack
 
-| Layer | Technology |
+| Area | Technology |
 | --- | --- |
-| Frontend | React 19 + TypeScript |
-| Build | Vite |
-| Map | MapLibre GL JS |
-| Styling | Vanilla CSS with design tokens |
-| Remote sensing | Google Earth Engine (Sentinel-2 SR Harmonized) |
+| Remote sensing | Google Earth Engine, Sentinel-2 SR Harmonized |
+| Notebook workflow | Python, Earth Engine Python API, geemap, rasterio |
 | GIS validation | QGIS LTR |
+| Frontend | React 19, TypeScript, Vite |
+| Web map | MapLibre GL JS, OpenStreetMap raster basemap |
+| Charts | Recharts |
+| Routing | React Router |
+| Data exchange | JSON, GeoJSON, GeoTIFF |
 
-## Quick Start
+## How to Run Locally
+
+Requirements:
+
+- Node.js and npm for the dashboard.
+- An authenticated Earth Engine environment with `ee`, `geemap`, and
+  `rasterio` only if regenerating the analysis outputs.
+
+Run the dashboard:
 
 ```bash
 npm install
 npm run dev
 ```
 
-The dashboard reads static JSON and GeoJSON files from `public/sample-analysis/`.
-
 Routes:
 
-- `/` - interactive dashboard, map, statistics, and area comparison chart
+- `/` - dashboard, statistics, area chart, and interactive candidate map
 - `/report` - preliminary portfolio report preview
 
-## Project Structure
+The frontend reads only the committed static files under
+`public/sample-analysis/`. It does not connect live Earth Engine to the
+browser.
 
+## Repository Structure
+
+```text
+.
+|-- docs/
+|   |-- assets/                    # Portfolio screenshots
+|   `-- geo/                       # Workflow, indices, and validation docs
+|-- notebooks/
+|   `-- 01_sentinel2_ndvi_change_phenikaa_area.ipynb
+|-- public/sample-analysis/
+|   |-- geojson/                   # Candidate polygon layers
+|   |-- rasters/                   # Before/after RGB and difference GeoTIFFs
+|   `-- phenikaa-area-ndvi-change.json
+|-- qgis/
+|   |-- outputs/                   # Validation map PNG/PDF
+|   `-- phenikaa-validation.qgz
+|-- src/
+|   |-- components/                # Cards, charts, layout, and map
+|   |-- features/dashboard/        # Interactive dashboard page
+|   |-- features/report/           # Preliminary report preview
+|   |-- lib/data/                  # Typed static-data loading
+|   `-- types/                     # TypeScript analysis contracts
+|-- PROJECT_STATUS.md
+|-- PROGRESS_LOG.md
+`-- README.md
 ```
-├── public/sample-analysis/      # Static analysis outputs (JSON, GeoJSON, rasters)
-├── src/
-│   ├── components/              # Reusable UI components
-│   │   ├── cards/               # StatCard
-│   │   ├── layout/              # DashboardShell
-│   │   └── map/                 # ChangeMap, LayerControls
-│   ├── features/dashboard/      # DashboardPage
-│   ├── lib/data/                # Static data loading
-│   └── types/                   # TypeScript interfaces
-├── notebooks/                   # Earth Engine analysis notebooks
-├── docs/geo/                    # Methodology, indices, validation docs
-├── qgis/                       # QGIS validation project
-└── scripts/                    # GIS processing scripts
-```
 
-## Data Sources
+## Skills Demonstrated
 
-- **Sentinel-2 Surface Reflectance Harmonized** (`COPERNICUS/S2_SR_HARMONIZED`)
-- Same-season comparison: October–April
-- Cloud-masked median composites
-- Threshold: mean ± 1.5 standard deviation of NDVI/NDBI difference
+- Sentinel-2 remote sensing analysis and spectral-index interpretation.
+- Same-season composite design and cloud-mask reasoning.
+- Statistical thresholding and raster area calculations.
+- Earth Engine export automation and reproducible notebooks.
+- GeoJSON and GeoTIFF data production.
+- QGIS layer styling, visual review, and print-map export.
+- Qualitative validation with explicit uncertainty management.
+- React and TypeScript dashboard development.
+- MapLibre WebGIS integration and thematic layer controls.
+- Clear technical communication for GIS reviewers and recruiters.
 
-## Documentation
+## Next Steps
 
-- [Workflow](docs/geo/WORKFLOW.md) — processing steps and current results
-- [Indices](docs/geo/INDICES.md) — NDVI, NDBI formulas and interpretation
-- [Validation](docs/geo/VALIDATION.md) — qualitative validation protocol and records
-- [Project Plan](PROJECT_PLAN.md) — full project plan and roadmap
-- [Project Status](PROJECT_STATUS.md) — current state snapshot
-- [Progress Log](PROGRESS_LOG.md) — session log and handoff notes
-
-## Limitations
-
-- Detected change areas have not been validated with a full statistical accuracy assessment.
-- NDVI change alone does not prove land-use change.
-- Combined NDVI loss + NDBI gain is a stronger candidate signal but does not confirm urbanization.
-- The AOI is a small pilot area; thresholds should be recalculated for other areas.
-- Vectorized polygon-area sums differ slightly from raster pixel-area totals.
-- The OpenStreetMap basemap requires an internet connection; GeoTIFF display is deferred.
+- Expand qualitative review beyond V01-V03 using a documented sampling
+  strategy.
+- Build a full statistical accuracy assessment with labeled reference samples
+  and a confusion matrix.
+- Add more QGIS production and data-quality workflows, including geometry and
+  topology checks.
+- Add route-level code splitting to reduce the current frontend bundle size.
+- Add deployment and demo links when the private project is ready to publish.
 
 ## License
 
-Private repository — not yet published.
+Private repository - not yet published.

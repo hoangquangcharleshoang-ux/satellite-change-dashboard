@@ -356,3 +356,31 @@ Next:
 
 - Continue qualitative validation and create a QGIS print layout export.
 - Consider route-level code-splitting to resolve the Vite large-chunk warning.
+
+## Session - 2026-06-13 - Portfolio README Polish
+
+Completed:
+
+- Rewrote the README for portfolio, recruiter, and GIS-reviewer audiences.
+- Documented project motivation, features, AOI, dataset, methodology, current
+  results, validation status, limitations, tech stack, local setup, repository
+  structure, skills demonstrated, and next steps.
+- Referenced the existing dashboard overview, dashboard map, report preview,
+  and QGIS validation map screenshots from `docs/assets/`.
+- Linked the existing QGIS validation map PNG and PDF exports.
+- Kept potential urban expansion, Google Earth reference use, preliminary
+  validation, mixed-pixel effects, and seasonal uncertainty explicit.
+- Kept all application source code and geospatial analysis outputs unchanged.
+
+Verification:
+
+- `git diff --check` passed.
+- No npm build was required because only documentation and screenshot assets
+  were changed.
+
+Next:
+
+- Expand validation beyond V01-V03 and create a documented statistical
+  accuracy assessment.
+- Prepare deployment and demo links when the private repository is ready to
+  publish.
