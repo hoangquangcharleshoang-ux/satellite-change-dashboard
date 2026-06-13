@@ -33,3 +33,4 @@ __pycache__/
 .env.local
 *.key
 *.json.key
+*.aux.xml*.aux.xml
