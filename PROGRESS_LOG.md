@@ -108,3 +108,33 @@ Next:
 
 - Perform qualitative manual review of exported candidate polygons and record
   evidence, confidence, and Confirmed / Unclear / Rejected status.
+
+## Session - 2026-06-13 - Reproducible Validation Rasters
+
+Completed:
+
+- Extended the notebook with local GeoTIFF export for before and after
+  Sentinel-2 RGB median composites.
+- Exported continuous NDVI and NDBI difference GeoTIFFs.
+- Used the existing AOI, date ranges, cloud mask, and median composites.
+- Preserved full negative-to-positive difference ranges, including valid
+  zero-change pixels.
+- Executed the notebook successfully and verified raster metadata.
+- Updated the workflow and qualitative validation documentation.
+
+Created:
+
+- `public/sample-analysis/rasters/sentinel2-before-rgb.tif`
+- `public/sample-analysis/rasters/sentinel2-after-rgb.tif`
+- `public/sample-analysis/rasters/ndvi-difference.tif`
+- `public/sample-analysis/rasters/ndbi-difference.tif`
+
+Verification:
+
+- All four GeoTIFFs are EPSG:4326 at approximately 10 m pixel spacing.
+- No frontend files changed; no npm build required.
+
+Next:
+
+- Load the candidate polygons and four validation rasters into QGIS, compare
+  before/after evidence, and record qualitative labels and confidence.

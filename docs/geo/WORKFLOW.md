@@ -177,6 +177,30 @@ The AOI is small enough for local Earth Engine `getInfo()` vector export.
 GeoJSON features include change type, polygon area, and
 `candidate_not_validated` status.
 
+### 11. Export Reproducible Validation Rasters
+
+The notebook exports visual comparison layers from the same Sentinel-2 median
+composites and index differences used by the analysis:
+
+```text
+public/sample-analysis/rasters/sentinel2-before-rgb.tif
+public/sample-analysis/rasters/sentinel2-after-rgb.tif
+public/sample-analysis/rasters/ndvi-difference.tif
+public/sample-analysis/rasters/ndbi-difference.tif
+```
+
+The before and after RGB GeoTIFFs contain scaled surface-reflectance bands
+`B4`, `B3`, and `B2`. The difference GeoTIFFs contain continuous single-band
+NDVI and NDBI difference values. Exports use EPSG:4326 and approximately 10 m
+pixel spacing.
+
+The notebook uses `geemap` for Earth Engine download and `rasterio` to clear
+the incorrect zero nodata tag so zero remains a valid difference value.
+
+These rasters make the validation comparison reproducible and suitable for
+QGIS. Google Earth historical imagery remains optional qualitative context,
+not the sole comparison source.
+
 ## Current Output
 
 The current JSON output records:
@@ -192,6 +216,7 @@ The current JSON output records:
 - NDBI difference mean, standard deviation, and thresholds
 - combined candidate rule, area, status, and caveat
 - local GeoJSON candidate layers
+- before/after RGB and NDVI/NDBI difference GeoTIFFs for validation
 
 ## Limitations
 
@@ -219,3 +244,5 @@ The current JSON output records:
 - All candidate change layers require visual and manual validation.
 - GeoJSON polygon-area sums can differ slightly from raster pixel-area totals
   because vectorization approximates raster boundaries.
+- RGB outputs are median composites assembled from multiple valid observations,
+  not single-date images.
