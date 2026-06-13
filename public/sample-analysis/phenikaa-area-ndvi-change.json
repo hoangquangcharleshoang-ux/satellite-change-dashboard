@@ -1,0 +1,38 @@
+{
+  "aoiName": "Phenikaa Hospital Area, Hanoi",
+  "aoiDescription": "Phu Dien - Xuan Phuong area near Phenikaa University Hospital, Hanoi",
+  "center": {
+    "longitude": 105.749433,
+    "latitude": 21.039419
+  },
+  "dataset": "COPERNICUS/S2_SR_HARMONIZED",
+  "index": "NDVI",
+  "beforeRange": [
+    "2018-10-01",
+    "2019-04-30"
+  ],
+  "afterRange": [
+    "2024-10-01",
+    "2025-04-30"
+  ],
+  "method": {
+    "comparison": "same-season comparison",
+    "seasonWindow": "October to April",
+    "composite": "median composite",
+    "threshold": "mean ± 1.5 standard deviation of NDVI difference",
+    "lossRule": "NDVI_Diff < mean - 1.5 * stdDev",
+    "gainRule": "NDVI_Diff > mean + 1.5 * stdDev"
+  },
+  "imageCounts": {
+    "before": 5,
+    "after": 10
+  },
+  "stats": {
+    "differenceMean": -0.029051315005948708,
+    "differenceStdDev": 0.1504748968728374,
+    "vegetationLossThreshold": -0.2547636603152048,
+    "vegetationGainThreshold": 0.1966610303033074,
+    "vegetationLossKm2": 0.5842980238744406,
+    "vegetationGainKm2": 0.35884955265580726
+  }
+}
