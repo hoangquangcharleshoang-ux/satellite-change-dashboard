@@ -68,6 +68,15 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   contracts.
 - Added a GitHub Actions quality gate for pushes and pull requests to `main`,
   including failure-only Playwright report and trace artifacts.
+- Added development-only bundle analysis with ignored raw analyzer output.
+- Lazy-loaded the `/report` route and deferred the Recharts chart, MapLibre map,
+  and MapLibre stylesheet behind accessible loading states and a chunk-load
+  error boundary.
+- Reduced the initial production JavaScript from 1,625.11 kB (454.39 kB gzip)
+  to 249.25 kB (79.36 kB gzip), and the initial CSS from 85.62 kB (13.70 kB
+  gzip) to 15.98 kB (3.82 kB gzip).
+- Confirmed that analysis JSON and GeoJSON remain runtime-fetched public assets
+  and are not embedded in JavaScript chunks.
 
 ## Current Results
 
@@ -94,13 +103,14 @@ Phase 2 - Dashboard MVP with polished UI/UX.
 - Visual RGB layers are multi-date median composites, not single-date scenes.
 - The OpenStreetMap basemap requires an internet connection and is contextual
   reference only; GeoTIFF display remains deferred.
-- The production bundle currently reports a large-chunk warning because
-  MapLibre and the dashboard load in one initial bundle.
+- The production build still reports one large-chunk warning for the deferred
+  MapLibre chunk: 1,029.44 kB raw and 273.72 kB gzip. MapLibre is published to
+  this project as one pre-bundled module, so package-based chunk rules cannot
+  split it meaningfully; the warning threshold remains unchanged.
 - Expanded manual geographic validation remains pending; browser automation
   verifies application behavior and data contracts, not scientific accuracy.
 
 ## Next Step
 
 Expand validation beyond V01-V03 and create a documented statistical accuracy
-assessment. Consider route-level code-splitting to reduce the production
-bundle size. Phase 2 expanded validation has not started.
+assessment. Phase 2 expanded validation has not started.

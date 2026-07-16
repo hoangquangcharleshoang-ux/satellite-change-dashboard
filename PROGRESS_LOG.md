@@ -469,3 +469,45 @@ Next:
 
 - Confirm the GitHub Actions quality gate passes after push.
 - Continue expanded manual geographic validation in a separate task.
+
+## Session - 2026-07-16 - Production Bundle Loading Optimization
+
+Completed:
+
+- Reproduced the baseline production build and recorded its single 1,625.11 kB
+  JavaScript bundle (454.39 kB gzip), 85.62 kB stylesheet (13.70 kB gzip), and
+  Vite large-chunk warning.
+- Added `rollup-plugin-visualizer` as a development-only dependency and an
+  `npm run analyze` command. Raw analyzer output is ignored by Git.
+- Identified the bundled MapLibre distribution as the dominant dependency,
+  followed by Recharts and React DOM. Confirmed static JSON and GeoJSON files
+  are fetched from `public/sample-analysis/` at runtime rather than bundled.
+- Lazy-loaded the `/report` route with an accessible route fallback.
+- Lazy-loaded the Recharts area chart and MapLibre map after dashboard data is
+  available, and deferred the MapLibre stylesheet with the map chunk.
+- Added stable chart/map loading placeholders and an application-level error
+  state for lazy chunk failures without changing visible feature behavior.
+- Kept the Vite warning limit unchanged and did not add arbitrary vendor chunk
+  rules. The remaining warning belongs only to MapLibre's asynchronously loaded
+  pre-bundled module, which cannot be meaningfully divided by package grouping.
+- Reduced initial JavaScript to 249.25 kB (79.36 kB gzip) and initial CSS to
+  15.98 kB (3.82 kB gzip). The deferred report, chart, and map JavaScript chunks
+  are 6.73 kB, 341.49 kB, and 1,029.44 kB respectively.
+- Kept routes, report data, map behavior, chart output, deployment configuration,
+  validation records, and geospatial content unchanged.
+
+Verification:
+
+- `npm ci` passed.
+- `npm run lint` passed.
+- `npm run build` passed; the deferred MapLibre chunk still emits the documented
+  warning at 1,029.44 kB raw and 273.72 kB gzip.
+- `npm run analyze` passed and generated ignored raw bundle statistics.
+- `npm run test:e2e` passed all 7 tests.
+- `npm run check` passed lint, build, and all 7 Playwright tests.
+- `git diff --check` passed.
+
+Next:
+
+- Continue expanded manual geographic validation in a separate task; no new
+  validation work or claims were added during this performance session.

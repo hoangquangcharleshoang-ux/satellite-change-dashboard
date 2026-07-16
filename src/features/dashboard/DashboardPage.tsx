@@ -11,11 +11,9 @@ import {
   Sprout,
   TreePine,
 } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { StatCard } from '../../components/cards/StatCard'
-import { AreaComparisonChart } from '../../components/charts/AreaComparisonChart'
 import { DashboardShell } from '../../components/layout/DashboardShell'
-import { ChangeMap } from '../../components/map/ChangeMap'
 import { LayerControls } from '../../components/map/LayerControls'
 import { loadDashboardData } from '../../lib/data/analysis'
 import type {
@@ -23,6 +21,18 @@ import type {
   LayerId,
   LayerVisibility,
 } from '../../types/analysis'
+
+const AreaComparisonChart = lazy(() =>
+  import('../../components/charts/AreaComparisonChart').then((module) => ({
+    default: module.AreaComparisonChart,
+  })),
+)
+
+const ChangeMap = lazy(() =>
+  import('../../components/map/ChangeMap').then((module) => ({
+    default: module.ChangeMap,
+  })),
+)
 
 const initialVisibility: LayerVisibility = {
   'vegetation-loss': true,
@@ -39,6 +49,40 @@ function formatStatus(status: string) {
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
+}
+
+function ChartLoadingFallback() {
+  return (
+    <article className="panel chart-panel" aria-busy="true" aria-live="polite">
+      <header className="panel__header">
+        <div>
+          <h2>Detected Change Area</h2>
+          <p>Area comparison in km{`\u00B2`}</p>
+        </div>
+      </header>
+      <div className="area-chart lazy-feature-state">
+        <LoaderCircle className="spin" size={24} />
+        <span>Loading area comparison chart</span>
+      </div>
+      <p className="chart-panel__caveat">
+        The urban expansion value is a candidate area, not confirmed land-use
+        change.
+      </p>
+    </article>
+  )
+}
+
+function MapLoadingFallback() {
+  return (
+    <div
+      className="map-container lazy-feature-state"
+      aria-busy="true"
+      aria-live="polite"
+    >
+      <LoaderCircle className="spin" size={24} />
+      <span>Loading interactive map</span>
+    </div>
+  )
 }
 
 export function DashboardPage() {
@@ -188,7 +232,9 @@ export function DashboardPage() {
           <span className="section-label__eyebrow">Area Comparison</span>
           <span className="section-label__line" />
         </div>
-        <AreaComparisonChart summary={summary} />
+        <Suspense fallback={<ChartLoadingFallback />}>
+          <AreaComparisonChart summary={summary} />
+        </Suspense>
       </div>
 
       {/* ── Map + Layers ─────────────────────────────────── */}
@@ -208,11 +254,13 @@ export function DashboardPage() {
                 </p>
               </div>
             </header>
-            <ChangeMap
-              layers={layers}
-              summary={summary}
-              visibility={visibility}
-            />
+            <Suspense fallback={<MapLoadingFallback />}>
+              <ChangeMap
+                layers={layers}
+                summary={summary}
+                visibility={visibility}
+              />
+            </Suspense>
           </section>
           <LayerControls
             layers={layers}
