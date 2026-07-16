@@ -403,3 +403,34 @@ Next:
 
 - Share the live demo with portfolio reviewers and continue expanding
   qualitative validation.
+
+## Session - 2026-07-16 - Vercel SPA Routing and Public Repository Status
+
+Completed:
+
+- Diagnosed direct access and refresh failures on `/report`: React Router owns
+  the route in the browser, but Vercel had no SPA fallback for a direct server
+  request.
+- Added `vercel.json` with a catch-all rewrite to `index.html`, allowing React
+  Router to resolve `/` and `/report` after Vercel serves the SPA entry point.
+- Corrected the README license section to state that the repository is public
+  for portfolio and educational review and that no open-source license has
+  been selected.
+- Kept application source code and all geospatial outputs unchanged.
+
+Verification:
+
+- `npm run lint` passed.
+- `npm run build` passed with the existing large-chunk warning.
+- The production preview returned HTTP 200 for `/`, direct `/report`, the
+  analysis JSON, and all three dashboard GeoJSON files. Reloading `/report`
+  resolves through the same SPA fallback behavior.
+- Live Vercel verification is pending until this commit is pushed and the
+  resulting deployment completes.
+
+Next:
+
+- Verify `/` and direct/refresh access to `/report` after Vercel deploys this
+  commit.
+- Continue Phase 2 validation beyond V01-V03 without starting that work in
+  this routing-fix session.

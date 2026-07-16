@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** 2026-06-13
+**Last updated:** 2026-07-16
 
 ## Current Phase
 
@@ -54,6 +54,10 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   document with real dashboard, report, and QGIS screenshots.
 - Deployed the dashboard and report preview to Vercel:
   `https://satellite-change-dashboard.vercel.app`.
+- Added a Vercel SPA rewrite so direct access to and refreshes of `/report`
+  fall back to `index.html` before React Router resolves the client route.
+- Corrected the README to reflect that the repository is public for portfolio
+  and educational review, with no open-source license selected yet.
 
 ## Current Results
 
@@ -82,8 +86,11 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   reference only; GeoTIFF display remains deferred.
 - The production bundle currently reports a large-chunk warning because
   MapLibre and the dashboard load in one initial bundle.
+- Post-push live verification of the new `/report` fallback is pending until
+  this routing configuration is deployed by Vercel.
 
 ## Next Step
 
 Expand validation beyond V01-V03 and create a documented statistical accuracy
-assessment. Consider route-level code-splitting before deployment.
+assessment. Consider route-level code-splitting to reduce the production
+bundle size.

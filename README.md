@@ -265,4 +265,5 @@ browser.
 
 ## License
 
-Private repository - not yet published.
+This repository is publicly available for portfolio and educational review. No
+open-source license has been selected yet.
