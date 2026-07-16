@@ -425,12 +425,17 @@ Verification:
 - The production preview returned HTTP 200 for `/`, direct `/report`, the
   analysis JSON, and all three dashboard GeoJSON files. Reloading `/report`
   resolves through the same SPA fallback behavior.
-- Live Vercel verification is pending until this commit is pushed and the
-  resulting deployment completes.
+- Commit `6dbddc22ae03ee41fa94963060692f33db71553c` was pushed to
+  `main`, and Vercel redeployed from that branch.
+- Live verification passed for the dashboard root and direct and refreshed
+  `/report` access; `/report` no longer returns 404.
+- The static analysis JSON and all three GeoJSON layers load successfully. The
+  OpenStreetMap basemap, area comparison chart, and static-data report render
+  correctly.
+- Deployment finalization is complete. Phase 2 expanded validation has not
+  started.
 
 Next:
 
-- Verify `/` and direct/refresh access to `/report` after Vercel deploys this
-  commit.
 - Continue Phase 2 validation beyond V01-V03 without starting that work in
   this routing-fix session.

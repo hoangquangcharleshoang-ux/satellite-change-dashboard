@@ -58,6 +58,11 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   fall back to `index.html` before React Router resolves the client route.
 - Corrected the README to reflect that the repository is public for portfolio
   and educational review, with no open-source license selected yet.
+- Pushed commit `6dbddc22ae03ee41fa94963060692f33db71553c` to `main`
+  and confirmed Vercel redeployed the SPA routing fix.
+- Verified the live dashboard root, direct and refreshed `/report` access, the
+  static analysis JSON, all three GeoJSON layers, the OpenStreetMap basemap,
+  the area chart, and report data. Deployment finalization is complete.
 
 ## Current Results
 
@@ -86,11 +91,9 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   reference only; GeoTIFF display remains deferred.
 - The production bundle currently reports a large-chunk warning because
   MapLibre and the dashboard load in one initial bundle.
-- Post-push live verification of the new `/report` fallback is pending until
-  this routing configuration is deployed by Vercel.
 
 ## Next Step
 
 Expand validation beyond V01-V03 and create a documented statistical accuracy
 assessment. Consider route-level code-splitting to reduce the production
-bundle size.
+bundle size. Phase 2 expanded validation has not started.
