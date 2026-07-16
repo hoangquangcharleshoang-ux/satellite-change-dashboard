@@ -55,6 +55,7 @@ export function AreaComparisonChart({ summary }: AreaComparisonChartProps) {
       <div
         className="area-chart"
         aria-label="Area comparison chart for detected change categories"
+        role="img"
       >
         <ResponsiveContainer
           height="100%"

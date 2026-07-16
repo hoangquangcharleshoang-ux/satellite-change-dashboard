@@ -139,7 +139,11 @@ export function ChangeMap({ summary, layers, visibility }: ChangeMapProps) {
 
   return (
     <div className="map-container">
-      <div ref={containerRef} aria-label="Phenikaa change detection map" />
+      <div
+        ref={containerRef}
+        aria-label="Phenikaa change detection map"
+        role="region"
+      />
       <div className="map-note">
         Basemap: OpenStreetMap. Candidate polygons are derived from Sentinel-2
         analysis.

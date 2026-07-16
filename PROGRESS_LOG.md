@@ -439,3 +439,33 @@ Next:
 
 - Continue Phase 2 validation beyond V01-V03 without starting that work in
   this routing-fix session.
+
+## Session - 2026-07-16 - Automated Deployment Regression Checks
+
+Completed:
+
+- Added Playwright smoke coverage for the dashboard root and direct and
+  refreshed `/report` navigation.
+- Verified stable report content, map and chart presence, and all three chart
+  comparison categories through semantic selectors.
+- Added parse and structure checks for the analysis JSON and vegetation loss,
+  vegetation gain, and potential urban expansion GeoJSON files.
+- Added strict uncaught page-error, console-error, same-origin response, and
+  request-failure collection with a narrow exception for external
+  OpenStreetMap tiles.
+- Added local `test:e2e`, `test:e2e:ui`, `test:smoke`, and `check` scripts.
+- Added a Node 22 GitHub Actions quality gate for pushes and pull requests to
+  `main`, with Playwright artifacts uploaded on failure.
+- Kept expanded manual geographic validation pending and added no new manual
+  validation claims.
+
+Verification:
+
+- `npm install` completed with no audit findings.
+- `npm run check` passed lint, the production build, and all seven Playwright
+  tests. The existing large-chunk build warning remains.
+
+Next:
+
+- Confirm the GitHub Actions quality gate passes after push.
+- Continue expanded manual geographic validation in a separate task.

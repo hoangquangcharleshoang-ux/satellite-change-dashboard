@@ -63,6 +63,11 @@ Phase 2 - Dashboard MVP with polished UI/UX.
 - Verified the live dashboard root, direct and refreshed `/report` access, the
   static analysis JSON, all three GeoJSON layers, the OpenStreetMap basemap,
   the area chart, and report data. Deployment finalization is complete.
+- Added Playwright deployment regression tests for both routes, report
+  content, map and chart presence, browser errors, and static JSON/GeoJSON
+  contracts.
+- Added a GitHub Actions quality gate for pushes and pull requests to `main`,
+  including failure-only Playwright report and trace artifacts.
 
 ## Current Results
 
@@ -91,6 +96,8 @@ Phase 2 - Dashboard MVP with polished UI/UX.
   reference only; GeoTIFF display remains deferred.
 - The production bundle currently reports a large-chunk warning because
   MapLibre and the dashboard load in one initial bundle.
+- Expanded manual geographic validation remains pending; browser automation
+  verifies application behavior and data contracts, not scientific accuracy.
 
 ## Next Step
 

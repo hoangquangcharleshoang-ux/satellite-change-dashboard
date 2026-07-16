@@ -34,3 +34,8 @@ __pycache__/
 *.key
 *.json.key
 *.aux.xml*.aux.xml
+
+# Playwright
+playwright-report/
+test-results/
+blob-report/

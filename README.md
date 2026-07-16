@@ -185,6 +185,8 @@ a full statistical accuracy assessment.
 | Web map | MapLibre GL JS, OpenStreetMap raster basemap |
 | Charts | Recharts |
 | Routing | React Router |
+| Automated testing | Playwright |
+| Continuous integration | GitHub Actions |
 | Data exchange | JSON, GeoJSON, GeoTIFF |
 
 ## How to Run Locally
@@ -211,10 +213,41 @@ The frontend reads only the committed static files under
 `public/sample-analysis/`. It does not connect live Earth Engine to the
 browser.
 
+### Automated Quality Checks
+
+Install the Playwright Chromium runtime once after installing dependencies:
+
+```bash
+npx playwright install chromium
+```
+
+Run the complete local quality gate:
+
+```bash
+npm run check
+```
+
+`npm run check` runs lint, the production build, and the Playwright smoke
+suite. To rerun only the browser tests after building, use `npm run test:e2e`;
+`npm run test:e2e:ui` opens Playwright's interactive runner.
+
+The smoke suite covers the dashboard root, direct and refreshed `/report`
+navigation, committed report content, map and chart presence, analysis JSON,
+all three GeoJSON feature collections, uncaught browser errors, and failed
+same-origin requests. Third-party OpenStreetMap tile failures are excluded from
+the failure gate so temporary basemap outages do not hide application health.
+
+The GitHub Actions quality gate runs on pushes to `main` and pull requests
+targeting `main`. It installs dependencies from the lockfile, builds the
+production app, runs the Playwright suite, and uploads reports and traces when
+tests fail. Expanded manual geographic validation remains pending and is not
+replaced by these automated interface and data-contract checks.
+
 ## Repository Structure
 
 ```text
 .
+|-- .github/workflows/              # Build and Playwright quality gate
 |-- docs/
 |   |-- assets/                    # Portfolio screenshots
 |   `-- geo/                       # Workflow, indices, and validation docs
@@ -233,6 +266,8 @@ browser.
 |   |-- features/report/           # Preliminary report preview
 |   |-- lib/data/                  # Typed static-data loading
 |   `-- types/                     # TypeScript analysis contracts
+|-- tests/e2e/                     # Deployment regression smoke tests
+|-- playwright.config.ts           # Production-preview browser test config
 |-- PROJECT_STATUS.md
 |-- PROGRESS_LOG.md
 `-- README.md
@@ -249,6 +284,7 @@ browser.
 - Qualitative validation with explicit uncertainty management.
 - React and TypeScript dashboard development.
 - MapLibre WebGIS integration and thematic layer controls.
+- Playwright deployment regression testing and GitHub Actions CI.
 - Clear technical communication for GIS reviewers and recruiters.
 
 ## Next Steps
